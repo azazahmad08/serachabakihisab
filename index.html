@@ -3,23 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sera Cha Baki</title>
+    <title>Data Collection App</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 class="text-2xl font-bold mb-4 text-center">Data Collection</h2>
+<body class="bg-yellow-100 flex items-center justify-center min-h-screen">
+    <div class="bg-yellow-300 p-6 rounded-lg shadow-lg w-full max-w-sm">
+        <h2 class="text-2xl font-bold mb-4 text-center text-yellow-900">Data Collection</h2>
         <div class="mb-4">
-            <label for="dokan" class="block text-gray-700 font-bold">Cha Store:</label>
-            <input type="text" id="dokan" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label for="date" class="block text-yellow-800">Date:</label>
+            <input type="date" id="date" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
         </div>
         <div class="mb-4">
-            <label for="amount" class="block text-gray-700 font-bold">Amount:</label>
-            <input type="number" id="amount" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label for="dokan" class="block text-yellow-800">Dokan:</label>
+            <input type="text" id="dokan" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
         </div>
-        <button onclick="addData()" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">Add Data</button>
-        <button onclick="exportToExcel()" class="w-full bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600 transition">Download Excel</button>
+        <div class="mb-4">
+            <label for="amount" class="block text-yellow-800">Amount:</label>
+            <input type="number" id="amount" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+        </div>
+        <input type="hidden" id="editIndex">
+        <button onclick="addData()" class="w-full bg-yellow-600 text-white p-2 rounded hover:bg-yellow-700 transition">Add/Update Data</button>
+        <button onclick="viewData()" class="w-full bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600 transition">View Data</button>
+        <button onclick="exportToExcel()" class="w-full bg-blue-500 text-white p-2 rounded mt-2 hover:bg-blue-600 transition">Download Excel</button>
         <button onclick="clearData()" class="w-full bg-red-500 text-white p-2 rounded mt-2 hover:bg-red-600 transition">Clear Data</button>
+    </div>
+
+    <div id="dataTable" class="mt-8 w-full max-w-sm hidden bg-white rounded-lg shadow-lg p-4">
+        <h3 class="text-lg font-bold mb-4 text-center">Collected Data</h3>
+        <table class="w-full table-auto border-collapse">
+            <thead>
+                <tr class="bg-yellow-500 text-white">
+                    <th class="border p-2">Date</th>
+                    <th class="border p-2">Dokan</th>
+                    <th class="border p-2">Amount</th>
+                    <th class="border p-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data rows will be inserted here -->
+            </tbody>
+        </table>
     </div>
 
     <script src="app.js"></script>

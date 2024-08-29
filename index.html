@@ -5,48 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Collection App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensure table and parent div have the same width and are responsive */
+        .table-container {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+        }
+    </style>
 </head>
 <body class="bg-yellow-100 flex items-center justify-center min-h-screen">
-    <!-- Input Form -->
-    <div id="inputForm" class="bg-yellow-300 p-4 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm">
-        <h2 class="text-2xl font-bold mb-4 text-center text-yellow-900">Data Collection</h2>
-        <div class="mb-4">
-            <label for="date" class="block text-yellow-800">Date:</label>
-            <input type="date" id="date" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+    <div class="container p-4">
+        <!-- Input Form -->
+        <div id="inputForm" class="bg-yellow-300 p-4 rounded-lg shadow-lg w-full max-w-sm mx-auto">
+            <h2 class="text-2xl font-bold mb-4 text-center text-yellow-900">Data Collection</h2>
+            <div class="mb-4">
+                <label for="date" class="block text-yellow-800">Date:</label>
+                <input type="date" id="date" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            </div>
+            <div class="mb-4">
+                <label for="dokan" class="block text-yellow-800">Dokan:</label>
+                <input type="text" id="dokan" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            </div>
+            <div class="mb-4">
+                <label for="amount" class="block text-yellow-800">Amount:</label>
+                <input type="number" id="amount" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            </div>
+            <button onclick="addData()" class="w-full bg-yellow-600 text-white p-2 rounded hover:bg-yellow-700 transition">Add Data</button>
+            <button onclick="viewData()" class="w-full bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600 transition">View Data</button>
         </div>
-        <div class="mb-4">
-            <label for="dokan" class="block text-yellow-800">Dokan:</label>
-            <input type="text" id="dokan" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-        </div>
-        <div class="mb-4">
-            <label for="amount" class="block text-yellow-800">Amount:</label>
-            <input type="number" id="amount" class="w-full p-2 border border-yellow-500 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-        </div>
-        <button onclick="addData()" class="w-full bg-yellow-600 text-white p-2 rounded hover:bg-yellow-700 transition">Add Data</button>
-        <button onclick="viewData()" class="w-full bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600 transition">View Data</button>
-    </div>
 
-    <!-- Data Table -->
-    <div id="dataTable" class="mt-8 w-2/5 max-w-xs sm:max-w-sm hidden bg-white rounded-lg shadow-lg p-4">
-        <h3 class="text-lg font-bold mb-4 text-center">Collected Data</h3>
-        <table class="w-full table-auto border-collapse text-xs sm:text-sm">
-            <thead>
-                <tr class="bg-yellow-500 text-white">
-                    <th class="border p-1 sm:p-2">Date</th>
-                    <th class="border p-1 sm:p-2">Dokan</th>
-                    <th class="border p-1 sm:p-2">Amount</th>
-                    <th class="border p-1 sm:p-2">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- Data rows will be inserted here -->
-            </tbody>
-        </table>
-        <div class="mt-4 flex justify-between">
-            <button onclick="downloadExcel()" class="bg-blue-500 text-white p-1 sm:p-2 rounded hover:bg-blue-600 transition">Download as Excel</button>
-            <button onclick="clearData()" class="bg-red-500 text-white p-1 sm:p-2 rounded hover:bg-red-600 transition">Clear Data</button>
+        <!-- Data Table -->
+        <div id="dataTable" class="mt-8 w-full max-w-sm mx-auto hidden bg-white rounded-lg shadow-lg p-4 table-container">
+            <h3 class="text-lg font-bold mb-4 text-center">Collected Data</h3>
+            <table class="w-full table-auto border-collapse">
+                <thead>
+                    <tr class="bg-yellow-500 text-white">
+                        <th class="border p-2">Date</th>
+                        <th class="border p-2">Dokan</th>
+                        <th class="border p-2">Amount</th>
+                        <th class="border p-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data rows will be inserted here -->
+                </tbody>
+            </table>
+            <div class="mt-4 flex justify-between">
+                <button onclick="downloadExcel()" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">Download as Excel</button>
+                <button onclick="clearData()" class="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition">Clear Data</button>
+            </div>
+            <button onclick="showInputForm()" class="w-full bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-600 transition">Add Another Data</button>
         </div>
-        <button onclick="showInputForm()" class="w-full bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-600 transition">Add Another Data</button>
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js"></script>

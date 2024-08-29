@@ -1,9 +1,17 @@
-let data = [];
+let data = JSON.parse(localStorage.getItem('data')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('date').value = today;
+
+    if (data.length > 0) {
+        viewData();
+    }
 });
+
+function saveDataToLocalStorage() {
+    localStorage.setItem('data', JSON.stringify(data));
+}
 
 function addData() {
     const date = document.getElementById('date').value;
@@ -12,6 +20,7 @@ function addData() {
 
     if (dokan && amount) {
         data.push({ date, dokan, amount });
+        saveDataToLocalStorage();
         alert('Data added successfully!');
         document.getElementById('dokan').value = '';
         document.getElementById('amount').value = '';
@@ -54,12 +63,14 @@ function showInputForm() {
 
 function updateData(index, field, value) {
     data[index][field] = value;
+    saveDataToLocalStorage();
     alert(`Data updated: ${field} = ${value}`);
 }
 
 function removeData(index) {
     if (confirm('Are you sure you want to remove this entry?')) {
         data.splice(index, 1);
+        saveDataToLocalStorage();
         viewData();
     }
 }
@@ -67,6 +78,7 @@ function removeData(index) {
 function clearData() {
     if (confirm('Are you sure you want to clear all data?')) {
         data = [];
+        saveDataToLocalStorage();
         viewData();
     }
 }
